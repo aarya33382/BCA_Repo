@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function About() {
   return (
-    <div>About</div>
+    <div className='border border-blue-600'>About</div>
   )
 }
