@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "bca_repo.client\\bca_repo.client.esproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "BCA_Repo.Server\\BCA_Repo.Server.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
