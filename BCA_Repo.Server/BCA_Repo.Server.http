@@ -1,0 +1,6 @@
+@BCA_Repo.Server_HostAddress = http://localhost:5193
+
+GET {{BCA_Repo.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

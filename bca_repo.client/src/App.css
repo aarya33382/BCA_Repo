@@ -1,0 +1,17 @@
+﻿@import "tailwindcss";
+
+.bb{
+  @apply border border-black
+}
+
+.br{
+  @apply border border-red-600
+}
+
+.bg{
+  @apply border border-green-500
+}
+
+.by{
+  @apply border border-yellow-500
+}
