@@ -8,6 +8,8 @@ import {Routes,Route} from 'react-router-dom'
 import Resources from './Components/Resources';
 import Contact from './Components/Contact';
 import About from './Components/About';
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register';
 function App() {
 
 
@@ -19,6 +21,8 @@ function App() {
             <Route path='/resources' element={<Resources/>}/>
             <Route path='/contact' element={<Contact/>}/>
             <Route path='/about' element={<About/>}/>
+            <Route path='/login'element={<Login/>}/>
+            <Route path='/register'element={<Register/>}/>
         </Routes>
                 
 
