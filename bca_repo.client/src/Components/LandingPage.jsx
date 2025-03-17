@@ -20,7 +20,7 @@ export default function LandingPage() {
             <p className="text-gray-700 mt-2">To unlock full access, including downloading and publishing study materials, and to enjoy a seamless user experience, please register and log in.</p>
             <div className="mt-4">
               <button className="bg-blue-600 text-white px-4 py-2 rounded mr-2" onClick={() => setShowPopup(false)}>Close</button>
-              <a href="/signup" className="bg-green-600 text-white px-4 py-2 rounded">Register</a>
+              <a href="/register" className="bg-green-600 text-white px-4 py-2 rounded">Register</a>
             </div>
           </div>
         </div>

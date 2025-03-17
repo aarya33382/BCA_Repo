@@ -13,7 +13,7 @@ export default function Navbar() {
       </ul>
       <div>
         <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded mr-2">Login</Link>
-        <Link to="/signup" className="bg-white text-blue-600 px-4 py-2 rounded">Sign Up</Link>
+        <Link to="/register" className="bg-white text-blue-600 px-4 py-2 rounded">Register</Link>
       </div>
     </nav>
   );
