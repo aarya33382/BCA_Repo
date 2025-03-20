@@ -78,7 +78,6 @@ export default function Register() {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
-              <option value="">Select Gender</option>
               <option value="0">Male</option>
               <option value="1">Female</option>
               <option value="2">Other</option>
