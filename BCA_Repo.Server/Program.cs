@@ -20,6 +20,7 @@ namespace BCA_Repo.Server
             //Dependency Injection 
             builder.Services.AddScoped<SqlClass>();
             builder.Services.AddScoped<BLUsers>();
+            builder.Services.AddScoped<BLResources>();
 
 
             builder.Services.AddSwaggerGen();
@@ -40,8 +41,8 @@ namespace BCA_Repo.Server
             var app = builder.Build();
 
             app.UseDefaultFiles();
-            app.UseStaticFiles();
             app.UseCors("AllowSpecificOrigins");
+            app.UseStaticFiles();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

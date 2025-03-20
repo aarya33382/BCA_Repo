@@ -6,6 +6,7 @@ namespace BCA_Repo.Server.Models
 {
     public class Resources
     {
+        public IFormFile File { get; set; }
         [Key]
         public int ResourceID { get; set; } 
 
@@ -16,7 +17,6 @@ namespace BCA_Repo.Server.Models
         [StringLength(1000)]
         public string Description { get; set; } 
 
-        [Required]
         [StringLength(500)]
         public string FilePath { get; set; }  
 
