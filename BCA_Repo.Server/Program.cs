@@ -1,4 +1,7 @@
 
+using BCA_Repo.Server.BusinessLayer;
+using BCA_Repo.Server.SqlOperations;
+
 namespace BCA_Repo.Server
 {
     public class Program
@@ -12,6 +15,13 @@ namespace BCA_Repo.Server
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
+
+            //Dependency Injection 
+            builder.Services.AddScoped<SqlClass>();
+            builder.Services.AddScoped<BLUsers>();
+
+
             builder.Services.AddSwaggerGen();
             builder.Services.AddCors(options =>
             {
@@ -23,6 +33,8 @@ namespace BCA_Repo.Server
                               .AllowAnyHeader();
                     });
             });
+
+
 
 
             var app = builder.Build();

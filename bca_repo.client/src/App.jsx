@@ -10,6 +10,10 @@ import Contact from './Components/Contact';
 import About from './Components/About';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
+import UserContext from './Components/Auth/UserContext';
+
+
+
 function App() {
 
 
@@ -22,7 +26,10 @@ function App() {
             <Route path='/contact' element={<Contact/>}/>
             <Route path='/about' element={<About/>}/>
             <Route path='/login'element={<Login/>}/>
-            <Route path='/register'element={<Register/>}/>
+            <Route path='/register'element={
+                <UserContext>
+                    <Register/>
+                </UserContext>}/>
         </Routes>
                 
 
