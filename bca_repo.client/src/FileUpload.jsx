@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { LucideVolleyball, X } from "lucide-react";
-
-const FileUpload = ({ onClose }) => {
+const FileUpload = ({ onClose,SetReload }) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -41,6 +40,8 @@ const FileUpload = ({ onClose }) => {
       if (response.status === 200) {
         setMessage(`✅ File uploaded: ${response.data.fileUrl}`);
         setTimeout(() => onClose(), 2100);
+        SetReload((prev)=>!prev);
+
       } else {
         setMessage("❌ File upload failed.");
       }
@@ -116,6 +117,4 @@ const FileUpload = ({ onClose }) => {
 };
 
 export default FileUpload;
-
-
 

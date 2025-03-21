@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const FileList = ({ searchQuery, selectedCategory }) => {
+const FileList = ({ searchQuery, selectedCategory,Reload }) => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    
     // Fetch all available files
     useEffect(() => {
         axios.get("https://localhost:7166/api/Resources/getResources")
@@ -20,7 +20,7 @@ const FileList = ({ searchQuery, selectedCategory }) => {
                 setError("Failed to load files.");
                 setLoading(false);
             });
-    }, []);
+    },[Reload]);
 
     // Handle file download
     const handleDownload = async (resourceID, fileName) => {
