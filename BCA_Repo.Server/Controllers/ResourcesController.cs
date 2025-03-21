@@ -49,22 +49,16 @@ namespace BCA_Repo.Server.Controllers
                 // File URL (for database storage)
                 string fileUrl = $"/uploads/{uniqueFileName}";
 
-                // Log values for debugging
-                Console.WriteLine($" File: {resource.File.FileName}");
-                Console.WriteLine($" Title: {resource.Title}");
-                Console.WriteLine($" Description: {resource.Description}");
-                Console.WriteLine($" Category: {resource.Category}");
-                Console.WriteLine($" UploadedBy: {resource.UploadedBy}");
-                Console.WriteLine($"Saved Path: {filePath}");
 
-                // Insert into database (Pass fileUrl, not the File object)
+
+
                 int resourceId = _bl.InsertResource(new Resources
                 {
                     Title = resource.Title,
                     Description = resource.Description,
                     Category = resource.Category,
                     UploadedBy = resource.UploadedBy,
-                    FilePath = fileUrl // ✅ Store file path instead of File object
+                    FilePath = fileUrl
                 });
 
                 return Ok(new
@@ -112,3 +106,4 @@ namespace BCA_Repo.Server.Controllers
         public IFormFile File { get; set; }
     }
 }
+

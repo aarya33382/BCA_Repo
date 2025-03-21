@@ -7,7 +7,7 @@ namespace BCA_Repo.Server.BusinessLayer
     public class BLResources
     {
         SqlClass sql;
-       public  BLResources(SqlClass DI)
+        public BLResources(SqlClass DI)
         {
             sql = DI;
         }
@@ -22,9 +22,8 @@ namespace BCA_Repo.Server.BusinessLayer
                 new SqlParameter("@UploadedBy",resource.UploadedBy)
             };
 
-          return sql.ExecuteNonQuery("InsertResource", parameters);
+            return sql.ExecuteNonQuery("InsertResource", parameters);
 
         }
     }
 }
-
