@@ -32,5 +32,21 @@ namespace BCA_Repo.Server.SqlOperations
                 }
             }
         }
+        public SqlDataReader ExecuteReader(string sp, SqlParameter[] parameters)
+        {
+            SqlConnection con = new SqlConnection(con_string);
+            SqlCommand cmd = new SqlCommand(sp, con)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            if (parameters != null)
+            {
+                cmd.Parameters.AddRange(parameters);
+            }
+
+            con.Open();
+            return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        }
     }
 }

@@ -1,0 +1,377 @@
+
+Resources.jsx
+
+import React, { useState } from 'react';
+import { Search, Upload } from 'lucide-react';
+import FileUpload from '../FileUpload';
+export default function Resources() {
+ const[upload,setUpload]=useState(false);
+  const handleUploadClick= (e)=>
+  {
+      setUpload((prev)=>!prev);
+  }
+
+
+
+
+
+  return (
+    <>
+    <div className="main-container w-full h-full p-6 bg-gray-100">
+      {/* Top Section: Search & Category Filter */}
+      <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md">
+        
+        {/* Search Input */}
+        <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 w-1/3">
+          <Search className="text-gray-500 mr-2" size={20} />
+          <input
+            type="text"
+            id="search"
+            placeholder="Search resources..."
+            className="w-full outline-none"
+          />
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex items-center">
+          <label htmlFor="cat" className="text-gray-700 font-medium mr-2">Category:</label>
+          <select
+            name="category"
+            id="cat"
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">All Categories</option>
+            <option value="notes">Notes</option>
+            <option value="question-papers">Question Papers</option>
+            <option value="assignments">Assignments</option>
+            <option value="projects">Projects</option>
+          </select>
+        </div>
+
+        {/* Upload Button */}
+        <button onClick={handleUploadClick} className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all">
+          <Upload size={20} className="mr-2" />
+          Upload Resource
+        </button>
+      </div>
+
+      {/* Resources List (Placeholder) */}
+      <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
+        <h2 className="text-lg font-semibold text-gray-800">Available Resources</h2>
+        <p className="text-gray-500">No resources found. Start by uploading one!</p>
+      </div>
+    </div>
+     {upload&&<FileUpload onClose={handleUploadClick}/>}
+    </>
+  );
+}
+
+
+FileUpload.jsx
+
+
+
+import React, { useState } from "react";
+import axios from "axios";
+import { X } from "lucide-react";
+
+const FileUpload = ({ onClose }) => {
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file || !title || !description || !category) {
+      setMessage("⚠️ All fields are required.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("File", file);  // ✅ Matches DTO property "File"
+    formData.append("Title", title);
+    formData.append("Description", description);
+    formData.append("Category", category);
+    formData.append("UploadedBy", 8);
+
+    console.log("🚀 Sending FormData:");
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]); // ✅ Debugging: Ensure correct field names
+    }
+
+    try {
+      const response = await axios.post(
+        "https://localhost:7166/api/Resources/save",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      if (response.status === 200) {
+        setMessage(`✅ File uploaded: ${response.data.fileUrl}`);
+        setTimeout(() => onClose(), 2100);
+      } else {
+        setMessage("❌ File upload failed.");
+      }
+    } catch (error) {
+      console.error("🔥 Upload error:", error);
+      setMessage(`❌ Upload failed: ${error.response?.data?.message || error.message}`);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-[400px] relative animate-fadeIn">
+        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-all">
+          <X size={24} />
+        </button>
+
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Upload Resource</h2>
+
+        <div className="mb-3">
+          <label className="block text-gray-700 font-medium">Title</label>
+          <input
+            type="text"
+            placeholder="Enter Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="block text-gray-700 font-medium">Description</label>
+          <textarea
+            placeholder="Enter Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div className="mb-3">
+          <label className="block text-gray-700 font-medium">Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Category</option>
+            <option value="notes">Notes</option>
+            <option value="question-papers">Question Papers</option>
+            <option value="assignments">Assignments</option>
+            <option value="projects">Projects</option>
+          </select>
+        </div>
+
+        <div className="mb-3">
+          <label className="block text-gray-700 font-medium">Upload File</label>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <button onClick={handleUpload} className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all">
+          Upload
+        </button>
+
+        {message && <p className="mt-3 text-center text-gray-700">{message}</p>}
+      </div>
+    </div>
+  );
+};
+
+export default FileUpload;
+
+
+
+
+Resource Controller 
+
+
+
+using BCA_Repo.Server.BusinessLayer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using BCA_Repo.Server.Models;
+
+namespace BCA_Repo.Server.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ResourcesController : ControllerBase
+    {
+        private readonly string _fileStoragePath;
+        private readonly BLResources _bl;
+
+        public ResourcesController(IConfiguration configuration, BLResources DI)
+        {
+            _fileStoragePath = configuration["FileStoragePath"] ?? "wwwroot/uploads";
+            _bl = DI;
+        }
+
+
+        [HttpPost("save")]
+        public async Task<IActionResult> CUploadFile([FromForm] ResourceUploadDto resource)
+        {
+            try
+            {
+                if (resource.File == null || resource.File.Length == 0)
+                    return BadRequest(new { message = "⚠️ No file uploaded." });
+
+                // Ensure upload directory exists
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), _fileStoragePath);
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                // Generate unique filename
+                string uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(resource.File.FileName)}";
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Save file
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await resource.File.CopyToAsync(stream);
+                }
+
+                // File URL (for database storage)
+                string fileUrl = $"/uploads/{uniqueFileName}";
+
+            
+
+            
+                int resourceId = _bl.InsertResource(new Resources
+                {
+                    Title = resource.Title,
+                    Description = resource.Description,
+                    Category = resource.Category,
+                    UploadedBy = resource.UploadedBy,
+                    FilePath = fileUrl 
+                });
+
+                return Ok(new
+                {
+                    resourceId,
+                    fileUrl,
+                    message = " File uploaded successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Upload Error: {ex.Message}");
+                return StatusCode(500, new { message = " An error occurred.", error = ex.Message });
+            }
+        }
+
+        [HttpGet("files")]
+        public IActionResult GetUploadedFiles()
+        {
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                return NotFound("Upload directory does not exist.");
+            }
+
+            var files = Directory.GetFiles(uploadsFolder)
+                                 .Select(file => new
+                                 {
+                                     FileName = Path.GetFileName(file),
+                                     FileUrl = $"/uploads/{Path.GetFileName(file)}"
+                                 })
+                                 .ToList();
+
+            return Ok(files);
+        }
+
+    }
+    public class ResourceUploadDto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public int UploadedBy { get; set; }
+        public IFormFile File { get; set; }
+    }
+}
+
+
+BLResources
+
+using BCA_Repo.Server.Models;
+using BCA_Repo.Server.SqlOperations;
+using Microsoft.Data.SqlClient;
+
+namespace BCA_Repo.Server.BusinessLayer
+{
+    public class BLResources
+    {
+        SqlClass sql;
+       public  BLResources(SqlClass DI)
+        {
+            sql = DI;
+        }
+        public int InsertResource(Resources resource)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Title",resource.Title),
+                new SqlParameter("@Description",resource.Description),
+                new SqlParameter("@FilePath",resource.FilePath),
+                new SqlParameter("@Category",resource.Category),
+                new SqlParameter("@UploadedBy",resource.UploadedBy)
+            };
+
+          return sql.ExecuteNonQuery("InsertResource", parameters);
+
+        }
+    }
+}
+
+SqlClass
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+
+namespace BCA_Repo.Server.SqlOperations
+{
+    public class SqlClass
+    {
+        private readonly string con_string;
+
+        public SqlClass(IConfiguration configuration)
+        {
+            con_string = configuration.GetConnectionString("BCA_repo_conn");
+        }
+
+        public int ExecuteNonQuery(string sp, SqlParameter[] parameters)
+        {
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand(sp, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    con.Open();
+                    return (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+    }
+}

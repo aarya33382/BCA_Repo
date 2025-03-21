@@ -25,5 +25,52 @@ namespace BCA_Repo.Server.BusinessLayer
             return sql.ExecuteNonQuery("InsertResource", parameters);
 
         }
+
+        public List<Resources> GetResources()
+        {
+            List<Resources> resourceList = new List<Resources>();
+            using (SqlDataReader reader = sql.ExecuteReader("GetResources", null))
+            {
+                while (reader.Read())
+                {
+                    resourceList.Add(new Resources
+                    {
+                        ResourceID= reader.GetInt32(0),
+                        Title = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        FilePath = reader.GetString(3),
+                        Category = reader.GetString(4),
+                        UploadedBy = reader.GetInt32(5)
+                    });
+                }
+            }
+            return resourceList;
+        }
+        public Resources GetResourceById(int resourceId)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+        new SqlParameter("@ResourceID", resourceId)
+            };
+
+            using (SqlDataReader reader = sql.ExecuteReader("GetResourceById", parameters))
+            {
+                if (reader.Read())
+                {
+                    return new Resources
+                    {
+                        ResourceID = reader.GetInt32(0),
+                        Title = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        FilePath = reader.GetString(5),
+                        Category = reader.GetString(3),
+                        UploadedBy = reader.GetInt32(4)
+                    };
+                }
+            }
+            return null; // If resource not found
+        }
+
+
     }
 }

@@ -1,7 +1,0 @@
-{
-  "name": "string",
-  "email": "user@example.com",
-  "passwordHash": "string",
-  "gender": 0,
-  "dateOfBirth": "2025-03-20"
-}
