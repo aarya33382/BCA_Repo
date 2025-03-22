@@ -59,6 +59,6 @@ namespace BCA_Repo.Server
             app.MapFallbackToFile("/index.html");
 
             app.Run();
-        }
+        }   
     }
 }

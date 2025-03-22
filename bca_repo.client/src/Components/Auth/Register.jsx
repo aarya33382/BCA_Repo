@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { userContext } from "./UserContext";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+
 export default function Register() {
   const { user, setUser } = useContext(userContext);
 
@@ -14,14 +17,34 @@ export default function Register() {
       [name]: value,
     }));
   };
+   
+  
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post("https://localhost:7166/api/Users", user)
-      .then((res) => console.log("User registered successfully!", res))
-      .catch((err) => console.error("Error registering user:", err));
+      .then((res) => {
+        console.log("User registered successfully!", res);
+          toast.success("File uploaded successfully!");
+        setUser({
+          name: "",
+          email: "",
+          passwordHash: "",
+          gender: 0,
+          dateOfBirth: ""
+        })
+      })
+      .catch((error) =>
+        {
+          console.error("Error registering user:", error);
+          if (error.response && error.response.status === 409) {
+            toast.warn("⚠️ Email already exists. Please log in.");
+        } else {
+            toast.error("❌ Registration failed. Try again.");
+        }
+        } )
   };
 
   return (

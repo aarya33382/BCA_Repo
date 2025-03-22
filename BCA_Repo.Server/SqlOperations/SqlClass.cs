@@ -27,8 +27,21 @@ namespace BCA_Repo.Server.SqlOperations
                         cmd.Parameters.AddRange(parameters);
                     }
 
-                    con.Open();
-                    return (int)cmd.ExecuteScalar();
+                    //con.Open();
+                    //return (int)cmd.ExecuteScalar();
+                    try
+                    {
+                        con.Open();
+                        return (int)cmd.ExecuteScalar();  
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 2627 || ex.Number == 2601) // Unique constraint violation
+                        {
+                            return -1;  // Return -1 when email already exists
+                        }
+                        throw;  // Re-throw for other SQL errors
+                    }
                 }
             }
         }

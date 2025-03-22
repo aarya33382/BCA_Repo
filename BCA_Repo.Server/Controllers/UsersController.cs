@@ -17,7 +17,19 @@ namespace BCA_Repo.Server.Controllers
         public IActionResult CInsertUsers([FromBody] Users user )
         {
            
-            return Ok(_bl.InsertUser(user));
+            int result =_bl.InsertUser(user);
+            if (result == -1)
+            {
+                return Conflict(new { message = "Email already exists. Please log in." });
+            }
+            else if (result > 0)
+            {
+                return Ok(new { message = "Registration successful!" ,UserId=result});
+            }
+            else
+            {
+                return BadRequest(new { message = "Registration failed." });
+            }
         }
     }
 }

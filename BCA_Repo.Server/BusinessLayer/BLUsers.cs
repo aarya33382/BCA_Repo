@@ -27,7 +27,8 @@ namespace BCA_Repo.Server.BusinessLayer
             };
           
 
-            return sql.ExecuteNonQuery(spQuery, parameters);
+            int result =sql.ExecuteNonQuery(spQuery, parameters);
+            return result ;
         }
     }
 }
