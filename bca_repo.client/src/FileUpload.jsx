@@ -23,7 +23,7 @@ const FileUpload = ({ onClose,SetReload }) => {
     formData.append("Title", title);
     formData.append("Description", description);
     formData.append("Category", category);
-    formData.append("UploadedBy", 8);
+    formData.append("UploadedBy", 38);
 
     console.log("🚀 Sending FormData:");
     for (let pair of formData.entries()) {
@@ -38,6 +38,7 @@ const FileUpload = ({ onClose,SetReload }) => {
       );
 
       if (response.status === 200) {
+        console.log(response.data);
         setMessage(`✅ File uploaded: ${response.data.fileUrl}`);
         setTimeout(() => onClose(), 2100);
         SetReload((prev)=>!prev);

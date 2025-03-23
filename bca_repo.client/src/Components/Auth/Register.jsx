@@ -27,7 +27,7 @@ export default function Register() {
       .post("https://localhost:7166/api/Users", user)
       .then((res) => {
         console.log("User registered successfully!", res);
-          toast.success("File uploaded successfully!");
+          toast.success("User Registered Successfully!");
         setUser({
           name: "",
           email: "",

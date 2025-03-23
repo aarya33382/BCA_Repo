@@ -22,8 +22,7 @@ namespace BCA_Repo.Server.Models
         public string PasswordHash { get; set; }
 
 
-        [StringLength(50)]
-        public string Role { get; set; } = "User";
+        public int RoleId { get; set; } = 0;
 
         [Required]
        

@@ -15,6 +15,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Test from './Components/Test';
+import SingleResource from './Components/SingleResource';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         <>
             <ToastContainer
                 position="top-right"
-                autoClose={4000}
+                autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
@@ -44,6 +45,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<LandingPage />} />
                         <Route path='/resources' element={<Resources />} />
+                        <Route path="/resource/:id" element={<SingleResource />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/login' element={<Login />} />

@@ -40,7 +40,8 @@ namespace BCA_Repo.Server.BusinessLayer
                         Description = reader.GetString(2),
                         FilePath = reader.GetString(3),
                         Category = reader.GetString(4),
-                        UploadedBy = reader.GetInt32(5)
+                        UploadedBy = reader.GetInt32(5),
+                        UploadedAt = reader.GetDateTime(6)
                     });
                 }
             }
