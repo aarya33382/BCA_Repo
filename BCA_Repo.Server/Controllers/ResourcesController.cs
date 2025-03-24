@@ -64,6 +64,7 @@ namespace BCA_Repo.Server.Controllers
 
                 return Ok(new
                 {
+                    resource.Title,
                     resourceId,
                     fileUrl,
                     message = " File uploaded successfully."

@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { Search, Upload } from 'lucide-react';
 import FileList from '../FileList';
 import FileUpload from '../FileUpload';
+import { toast } from "react-toastify";
+
+
+
 
 export default function Resources() {
     const [upload, setUpload] = useState(false);
@@ -16,7 +20,7 @@ export default function Resources() {
 
     return (
         <>
-            <div className="main-container w-full h-full p-6 bg-gray-100">
+            <div className="main-container w-full h-full p-6 bg-gray-100 overflow-auto">
                 {/* Top Section: Search & Category Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-center bg-white p-4 rounded-lg shadow-md">
                     

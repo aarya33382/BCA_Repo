@@ -21,13 +21,14 @@ namespace BCA_Repo.Server.BusinessLayer
                 new SqlParameter("@Name", user.Name),
                 new SqlParameter("@Email", user.Email),
                 new SqlParameter("@PasswordHash", user.PasswordHash),
-                new SqlParameter("@Role", user.Role),
+                new SqlParameter("@RoleId", user.RoleId),
                 new SqlParameter("@Gender", user.Gender),
                 new SqlParameter("@DateOfBirth", user.DateOfBirth)
             };
           
 
-            return sql.ExecuteNonQuery(spQuery, parameters);
+            int result =sql.ExecuteNonQuery(spQuery, parameters);
+            return result ;
         }
     }
 }

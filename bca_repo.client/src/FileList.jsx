@@ -2,58 +2,27 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const FileList = ({ searchQuery, selectedCategory,Reload }) => {
+const FileList = ({ searchQuery, selectedCategory, Reload }) => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+
     // Fetch all available files
     useEffect(() => {
         axios.get("https://localhost:7166/api/Resources/getResources")
             .then((response) => {
                 setFiles(response.data);
                 setLoading(false);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error("Error fetching files:", error);
                 setError("Failed to load files.");
                 setLoading(false);
             });
-    },[Reload]);
-
-    // Handle file download
-    const handleDownload = async (resourceID, fileName) => {
-        try {
-            const response = await axios.get(
-                `https://localhost:7166/api/Resources/download/${resourceID}`,
-                { responseType: "blob" }
-            );
-
-            const contentDisposition = response.headers["content-disposition"];
-            let suggestedFileName = fileName;
-            if (contentDisposition) {
-                const match = contentDisposition.match(/filename="(.+)"/);
-                if (match && match.length > 1) {
-                    suggestedFileName = match[1];
-                }
-            }
-
-            const blob = new Blob([response.data], { type: response.headers["content-type"] });
-
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", suggestedFileName || "downloaded_file");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error("Error downloading file:", error);
-            alert("⚠️ Failed to download file.");
-        }
-    };
+    }, [Reload]);
 
     // Apply filters for search & category
     const filteredFiles = files.filter((file) =>
@@ -71,18 +40,16 @@ const FileList = ({ searchQuery, selectedCategory,Reload }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredFiles.length > 0 ? (
                     filteredFiles.map((file) => (
-                        <div key={file.resourceID} className="border rounded-lg shadow-lg p-4 flex flex-col items-center bg-white">
+                        <Link
+                            key={file.resourceID}
+                            to={`/resource/${file.resourceID}`}  // Navigate to SingleResource
+                            className="border rounded-lg shadow-lg p-4 flex flex-col items-center bg-white cursor-pointer hover:shadow-xl transition"
+                        >
                             <div className="bg-gray-200 w-16 h-16 flex items-center justify-center rounded-full text-gray-700 text-lg font-bold">
                                 📄
                             </div>
                             <p className="mt-4 font-medium text-lg text-center">{file.title}</p>
-                            <button 
-                                onClick={() => handleDownload(file.resourceID, file.title)}
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                            >
-                                Download
-                            </button>
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <p className="text-center text-gray-500 col-span-full">
@@ -95,3 +62,5 @@ const FileList = ({ searchQuery, selectedCategory,Reload }) => {
 };
 
 export default FileList;
+
+
