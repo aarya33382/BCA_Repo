@@ -2,13 +2,17 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
-
 namespace BCA_Repo.Server.SqlOperations
 {
     public class SqlClass
     {
         private readonly string con_string;
-
+        public string conn = string.Empty;
+        public SqlClass()
+        {
+            var connString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["BCA_repo_conn"];
+            conn = Convert.ToString(connString);
+        }
         public SqlClass(IConfiguration configuration)
         {
             con_string = configuration.GetConnectionString("BCA_repo_conn");
@@ -61,5 +65,50 @@ namespace BCA_Repo.Server.SqlOperations
             con.Open();
             return cmd.ExecuteReader(CommandBehavior.CloseConnection);
         }
+        public DataTable GetContactUsDataTable(string procedureName, CommandType commandType, params SqlParameter[] parameters)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                using (SqlCommand cmd = new SqlCommand(procedureName, sqlConn))
+                {
+                    cmd.CommandType = commandType;
+
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    sqlConn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable tblData = new DataTable();
+                        da.Fill(tblData);
+                        return tblData;
+                    }
+                }
+            }
+        }
+        public int ExecuteOnlyQuery(string procedureName, CommandType commandType, params SqlParameter[] parameters)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                using (SqlCommand sqlcommend = new SqlCommand(procedureName, sqlConn))
+                {
+                    sqlcommend.CommandType = CommandType.StoredProcedure;
+
+
+                    if (parameters != null)
+                    {
+                        sqlcommend.Parameters.AddRange(parameters);
+                    }
+
+                    sqlConn.Open();
+                    int count = sqlcommend.ExecuteNonQuery();
+                    return count;
+                }
+            }
+        }
+
     }
 }
+

@@ -13,9 +13,9 @@ import Register from './Components/Auth/Register';
 import UserContext from './Components/Auth/UserContext';
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Test from './Components/Test';
 import SingleResource from './Components/SingleResource';
+import Admin from './Components/Admin';
 
 function App() {
 
@@ -48,6 +48,7 @@ function App() {
                         <Route path="/resource/:id" element={<SingleResource />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/about' element={<About />} />
+                        <Route path='/admin' element={<Admin />} />
                         <Route path='/login' element={<Login />} />
                         <Route path='/register' element={
                             <UserContext>
