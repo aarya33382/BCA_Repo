@@ -21,6 +21,7 @@ namespace BCA_Repo.Server
             builder.Services.AddScoped<SqlClass>();
             builder.Services.AddScoped<BLUsers>();
             builder.Services.AddScoped<BLResources>();
+            builder.Services.AddScoped<BLContact>();
 
 
             builder.Services.AddSwaggerGen();
