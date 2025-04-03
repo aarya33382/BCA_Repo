@@ -26,7 +26,7 @@ export default function Contact() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Sending data:", formData);
+    // console.log("Sending data:", formData);s
     setIsSubmitting(true);
     setSuccessMessage("");
     setErrorMessage("");
