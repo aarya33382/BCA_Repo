@@ -36,13 +36,13 @@ const FileList = ({ searchQuery, selectedCategory, Reload }) => {
         <div className="container mx-auto p-6">
             <h2 className="text-2xl font-semibold text-center mb-6">Available Files</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
                 {filteredFiles.length > 0 ? (
                     filteredFiles.map((file) => (
                         <Link
                             key={file.resourceID}
                             to={`/resource/${file.resourceID}`}  // Navigate to SingleResource
-                            className="border rounded-lg shadow-lg p-4 flex flex-col items-center bg-white cursor-pointer hover:shadow-xl transition"
+                            className=" border rounded-lg shadow-lg p-4 flex flex-col items-center bg-white cursor-pointer hover:shadow-xl transition"
                         >
                             <div className="bg-gray-200 w-16 h-16 flex items-center justify-center rounded-full text-gray-700 text-lg font-bold">
                                 📄

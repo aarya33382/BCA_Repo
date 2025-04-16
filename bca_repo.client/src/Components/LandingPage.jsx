@@ -47,22 +47,22 @@ export default function LandingPage() {
               <div className='w-[22%] h-[90%]  flex flex-col justify-around rounded-2xl shadow-2xl hover:scale-102' >
                 <FontAwesomeIcon icon={faBookOpen} size="2xl" style={{ color: "#286ee6", fontSize: "120px" }} />
                 <p className='font-bold text-center'>Lecture Notes</p>
-                <p className='text-center w-[90%]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates</p>
+                <p className='text-center w-[90%]'> Access topic-wise notes prepared by qualified educators and toppers to help you grasp concepts quickly and effectively.</p>
               </div>
               <div className='w-[22%] h-[90%]  flex flex-col justify-around rounded-2xl shadow-2xl hover:scale-102'>
                 <FontAwesomeIcon icon={faSheetPlastic} size="2xl" style={{ color: "#286ee6", fontSize: "120px" }} />
                 <p className='font-bold text-center'>Previous Year Question Papers</p>
-                <p className='text-center w-[90%]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates </p>
+                <p className='text-center w-[90%]'>Practice with actual question papers from previous semesters to understand exam patterns and boost confidence. </p>
               </div>
               <div className='w-[22%] h-[90%] flex flex-col justify-around rounded-2xl shadow-2xl hover:scale-102'>
                 <FontAwesomeIcon icon={faDiagramProject} size="2xl" style={{ color: "#286ee6", fontSize: "120px" }} />
                 <p className='font-bold text-center'>Project Reports</p>
-                <p className='text-center w-[90%]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates </p>
+                <p className='text-center w-[90%]'>Browse detailed project documentation to help you plan, design, and present your academic or mini-projects.</p>
               </div>
               <div className='w-[22%] h-[90%]  flex flex-col justify-around rounded-2xl shadow-2xl hover:scale-102'>
                 <FontAwesomeIcon icon={faBook} size="2xl" style={{ color: "#286ee6", fontSize: "120px" }} />
                 <p className='font-bold text-center'>Reference Books</p>
-                <p className='text-center w-[90%]'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates </p>
+                <p className='text-center w-[90%]'>Get curated lists of textbooks and reference materials recommended by universities and faculty members </p>
               </div>
             </div>
           </div>
