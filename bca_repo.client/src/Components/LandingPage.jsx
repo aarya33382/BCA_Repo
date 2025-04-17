@@ -131,15 +131,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* <div className="bg-white shadow-lg rounded-lg p-8 text-left mb-6">
-            <h2 className="text-3xl font-semibold text-blue-500">🎯 Why Choose BCA Repository?</h2>
-            <ul className="list-disc pl-8 text-gray-700 mt-4 space-y-2">
-              <li><strong>Free & Open Access</strong> – Materials are freely available for students.</li>
-              <li><strong>Well-Organized Categories</strong> – Find notes based on subjects and semesters.</li>
-              <li><strong>Secure & Verified Content</strong> – Admin approval ensures reliable resources.</li>
-              <li><strong>User-Friendly Interface</strong> – Simple and intuitive design.</li>
-            </ul>
-          </div> */}
+      
 <div class="bg-white shadow-lg rounded-lg p-8 text-left mb-6">
   <h2 class="text-3xl font-semibold text-blue-500 text-center mb-6">
     🎯 Why Choose BCA Repository?
