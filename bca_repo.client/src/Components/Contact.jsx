@@ -37,7 +37,7 @@ export default function Contact() {
       if (response.status==200) {
         setSuccessMessage("Message sent successfully! We will get back to you soon.");
         toast.success("Message sent succesfully")
-        setFormData({ name: "", email: "", reason: "", subject: "", message: "" }); // Reset form
+        setFormData({ userID:38,name: "", email: "", reason: "", subject: "", description: "" }); // Reset form
       } else {
         setErrorMessage("Something went wrong. Please try again later.");
       }
