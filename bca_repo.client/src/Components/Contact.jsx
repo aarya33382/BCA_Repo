@@ -26,7 +26,7 @@ export default function Contact() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Sending data:", formData);
+    // console.log("Sending data:", formData);s
     setIsSubmitting(true);
     setSuccessMessage("");
     setErrorMessage("");
@@ -37,7 +37,7 @@ export default function Contact() {
       if (response.status==200) {
         setSuccessMessage("Message sent successfully! We will get back to you soon.");
         toast.success("Message sent succesfully")
-        setFormData({ name: "", email: "", reason: "", subject: "", message: "" }); // Reset form
+        setFormData({ userID:38,name: "", email: "", reason: "", subject: "", description: "" }); // Reset form
       } else {
         setErrorMessage("Something went wrong. Please try again later.");
       }
@@ -47,48 +47,115 @@ export default function Contact() {
       setIsSubmitting(false);
     }
   };
+  
 
-  return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-800">
-          <span className="text-blue-600">BCA Repository</span> crafted with ❤️
-        </h1>
-        <hr className="border-t-2 border-red-400 w-3/4 mx-auto my-4" />
-      </div>
-      <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-gray-800">Contact Us</h2>
-        <p className="text-gray-600 text-sm mt-2">This contact page is only for general questions regarding the platform and inquiries related to uploading files.</p>
-        <hr className="border-gray-300 my-4" />
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-          </div>
-          <select name="reason" value={formData.reason} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="">- Reason -</option>
-            <option value="Upload Issue">Upload Issue</option>
-            <option value="Feedback">Feedback</option>
-          </select>
-          <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" required className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Enter your message" rows="4" required className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
-          
-          <div className="flex space-x-4">
-            <button type="submit" disabled={isSubmitting} className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
-              {isSubmitting ? "Sending..." : "SEND MESSAGE"}
-            </button>
-            <button type="reset" onClick={() => setFormData({ name: "", email: "", reason: "", subject: "", description: "" })} className="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition-all">RESET</button>
-          </div>
-        </form>
-
-        {successMessage && <p className="text-green-600 mt-4">{successMessage}</p>}
-        {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
-
-        <p className="text-gray-500 text-sm mt-6">
-          <strong>Note:</strong> Spamming this form will result in an IP ban.
-        </p>
-        <p className="text-gray-500 text-sm mt-2">We try to get back to our users as soon as possible, but due to high volume, responses may take 24-48 hours. Thank you for your patience!</p>
-      </div>
-    </div>
-  );
+ 
+   return (
+     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center py-10 px-4">
+       {/* Header */}
+       <div className="text-center mb-6">
+         <h1 className="text-3xl md:text-4xl font-extrabold text-blue-700">
+           BCA Repository
+         </h1>
+         <p className="text-sm text-gray-600 mt-1">crafted with ❤️ for BCA students</p>
+         <hr className="border-t-2 border-purple-300 w-32 mx-auto mt-3" />
+       </div>
+       {/* Contact Form Container */}
+       <div className="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8 border border-blue-100">
+         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">📩 Contact Us</h2>
+         <p className="text-gray-600 text-sm mb-4">
+           This contact page is for questions regarding the platform or uploading files.
+         </p>
+         <form className="space-y-5" onSubmit={handleSubmit}>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+             <input
+               type="text"
+               name="name"
+               value={formData.name}
+               onChange={handleChange}
+               placeholder="Your Name"
+               required
+               className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+             />
+             <input
+               type="email"
+               name="email"
+               value={formData.email}
+               onChange={handleChange}
+               placeholder="Your Email"
+               required
+               className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+             />
+           </div>
+           <select
+             name="reason"
+             value={formData.reason}
+             onChange={handleChange}
+             required
+             className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+           >
+             <option value="">— Select a Reason —</option>
+             <option value="Upload Issue">📤 Upload Issue</option>
+             <option value="Feedback">💬 Feedback</option>
+           </select>
+           <input
+             type="text"
+             name="subject"
+             value={formData.subject}
+             onChange={handleChange}
+             placeholder="Subject"
+             required
+             className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+           />
+           <textarea
+             name="description"
+             value={formData.description}
+             onChange={handleChange}
+             placeholder="Write your message..."
+             rows="5"
+             required
+             className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"
+           ></textarea>
+           {/* Buttons */}
+           <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
+             <button
+               type="submit"
+               disabled={isSubmitting}
+               className="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 ease-in-out"
+             >
+               {isSubmitting ? "Sending..." : "SEND MESSAGE"}
+             </button>
+             <button
+               type="reset"
+               onClick={() =>
+                 setFormData({
+                   name: "",
+                   email: "",
+                   reason: "",
+                   subject: "",
+                   description: "",
+                 })
+               }
+               className="w-full sm:w-auto px-6 py-2 bg-gray-400 hover:bg-gray-500 text-white font-medium rounded-lg transition duration-200 ease-in-out"
+             >
+               RESET
+             </button>
+           </div>
+         </form>
+         {/* Status Messages */}
+         {successMessage && (
+           <p className="text-green-600 mt-4 font-medium">{successMessage}</p>
+         )}
+         {errorMessage && (
+           <p className="text-red-600 mt-4 font-medium">{errorMessage}</p>
+         )}
+         {/* Notes */}
+         <div className="mt-6 text-sm text-gray-500 space-y-2">
+           <p><strong>Note:</strong> Spamming this form may result in an IP ban.</p>
+           <p>We try to respond within 24–48 hours. Thank you for your patience!</p>
+         </div>
+       </div>
+     </div>
+   );
+  
 }
