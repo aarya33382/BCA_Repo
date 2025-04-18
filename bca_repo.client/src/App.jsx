@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import FileUpload from './FileUpload';
 import FileList from './FileList';
@@ -13,12 +13,28 @@ import Register from './Components/Auth/Register';
 import UserContext from './Components/Auth/UserContext';
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axios from 'axios';
 
 import Test from './Components/Test';
 import SingleResource from './Components/SingleResource';
+import { totalContext } from './Components/AppCotext';
+
+
 
 function App() {
+    const {setCurrentUser,setIsLogged}=useContext(totalContext);
+   
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+          setIsLogged(true);
+          const currentuser=JSON.parse(localStorage.getItem('userT'));
+          setCurrentUser(currentuser);
+        }
+       
+      }, []);
 
 
     return (

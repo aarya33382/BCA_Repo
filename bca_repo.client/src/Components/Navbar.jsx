@@ -1,7 +1,16 @@
-import React from 'react';
+import React ,{useContext}from 'react';
 import { Link } from 'react-router-dom';
 
+
+import { totalContext } from './AppCotext';
+
+
+
 export default function Navbar() {
+  const {currentUser,isLogged}=useContext(totalContext);
+
+    
+
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center ">
       <div className="text-xl font-bold">BCA Repository</div>
@@ -11,10 +20,15 @@ export default function Navbar() {
         <li><Link to="/contact" className="hover:underline">Contact Us</Link></li>
         <li><Link to="/about" className="hover:underline">About Us</Link></li>
       </ul>
-      <div>
-        <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded mr-2">Login</Link>
-        <Link to="/register" className="bg-white text-blue-600 px-4 py-2 rounded">Register</Link>
-      </div>
+      {
+        isLogged?
+        currentUser.name
+        :(<div>
+          <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded mr-2">Login</Link>
+          <Link to="/register" className="bg-white text-blue-600 px-4 py-2 rounded">Register</Link>
+        </div>)
+      }
+     
     </nav>
   );
 }

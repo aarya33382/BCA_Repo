@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import { totalContext } from '../AppCotext.jsx';
+
+
 export default function Login() {
+
+    const {setCurrentUser,setIsLogged}=useContext(totalContext);
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,15 +35,34 @@ export default function Login() {
         password,
       });
       
-      // Assuming a successful response, store user data or token
-      const user = response.data;
+      if(response.data)
+      {
 
-      console.log(user);
-      // Store the token or user data in localStorage/sessionStorage
-      localStorage.setItem('user', JSON.stringify(user));
+        console.log(response.data);
+        // store  token
+        const token= response.data.token;
+        localStorage.setItem('token',token);
+        
+        const userWithToken= response.data;
+        // Store the token and  user data in localStorage
+        localStorage.setItem('userT', JSON.stringify(userWithToken));
+        
+        // Set deafult axios request header with the token 
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+
+        
+        setIsLogged(true);
+        const currentuser=JSON.parse(localStorage.getItem('userT'));
+        setCurrentUser(currentuser);
+        
+      }
+
 
       toast.success("Logged in succesfully !!!❤️");
-      // Redirect to the dashboard or home page
+
+
+      // Redirect to the home page
       navigate('/')
       
     } catch (error) {

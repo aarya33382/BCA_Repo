@@ -7,9 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BCA_Repo.Server.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BCA_Repo.Server.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ResourcesController : ControllerBase
@@ -23,10 +25,11 @@ namespace BCA_Repo.Server.Controllers
             _bl = DI;
         }
 
-
+        [Authorize] //// JWT authorization 
         [HttpPost("save")]
         public async Task<IActionResult> CUploadFile([FromForm] ResourceUploadDto resource)
         {
+            
             try
             {
                 if (resource.File == null || resource.File.Length == 0)
