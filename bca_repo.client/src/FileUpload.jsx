@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { LucideVolleyball, X } from "lucide-react";
+import { toast } from "react-toastify";
+
+
 const FileUpload = ({ onClose,SetReload }) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
@@ -42,7 +45,7 @@ const FileUpload = ({ onClose,SetReload }) => {
         setMessage(`✅ File uploaded: ${response.data.fileUrl}`);
         setTimeout(() => onClose(), 2100);
         SetReload((prev)=>!prev);
-
+           toast.success("File Uploaded Successfully!");
       } else {
         setMessage("❌ File upload failed.");
       }

@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { userContext } from "./UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
 export default function Register() {
+  const navigate= useNavigate();
   const { user, setUser } = useContext(userContext);
 
   // Handle input changes and update user state
@@ -34,7 +35,10 @@ export default function Register() {
           passwordHash: "",
           gender: 0,
           dateOfBirth: ""
+
         })
+        navigate('/login');
+
       })
       .catch((error) =>
         {

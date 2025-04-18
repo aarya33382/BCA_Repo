@@ -22,7 +22,7 @@ namespace BCA_Repo.Server
             builder.Services.AddScoped<BLUsers>();
             builder.Services.AddScoped<BLResources>();
             builder.Services.AddScoped<BLContact>();
-
+            builder.Services.AddScoped<BLLogin>();
 
             builder.Services.AddSwaggerGen();
             builder.Services.AddCors(options =>
