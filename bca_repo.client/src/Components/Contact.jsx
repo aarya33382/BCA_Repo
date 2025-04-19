@@ -42,6 +42,7 @@ export default function Contact() {
         setErrorMessage("Something went wrong. Please try again later.");
       }
     } catch (error) {
+      toast.error("Something went wrong!");
       setErrorMessage("Failed to send message. Please check your connection.");
     } finally {
       setIsSubmitting(false);

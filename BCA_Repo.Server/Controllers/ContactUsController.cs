@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BCA_Repo.Server.BusinessLayer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BCA_Repo.Server.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class ContactUsController : ControllerBase
@@ -22,6 +24,9 @@ namespace BCA_Repo.Server.Controllers
             return Ok(contactUs);
 
         }
+
+
+        [Authorize]
         [HttpPost]
         [Route("AddContact")]
         public IActionResult AddContactUs([FromBody] ContactUs contactUs)

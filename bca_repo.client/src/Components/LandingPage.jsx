@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faBookOpen, faDiagramProject, faSheetPlastic, faDownload, faFaceSmile, faUpload, faUserTie } from '@fortawesome/free-solid-svg-icons'
 import Navbar from './Navbar';
@@ -14,30 +14,62 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
+
+import { totalContext } from './AppCotext';
+
+
 export default function LandingPage() {
+ 
   const [showPopup, setShowPopup] = useState(true);
+  const {isLogged}=useContext(totalContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(false);
     }, 5000);
+    if(isLogged)
+      {
+        setShowPopup(false);
+      }
+      else{
+        setShowPopup(true)
+      }
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center">
-            <h2 className="text-2xl font-bold text-blue-600">Unlock Full Features!</h2>
-            <p className="text-gray-700 mt-2">To unlock full access, including downloading and publishing study materials, and to enjoy a seamless user experience, please register and log in.</p>
-            <div className="mt-4">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded mr-2" onClick={() => setShowPopup(false)}>Close</button>
-              <a href="/register" className="bg-green-600 text-white px-4 py-2 rounded">Register</a>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md text-center">
+      <h2 className="text-2xl font-bold text-blue-600">Unlock Full Features!</h2>
+      <p className="text-gray-700 mt-2">
+        To unlock full access, including downloading and publishing study materials, and to enjoy a seamless user experience, please register and log in.
+      </p>
+      <div className="mt-4 flex justify-center gap-2 flex-wrap">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+          onClick={() => setShowPopup(false)}
+        >
+          Close
+        </button>
+        <a
+          href="/login"
+          className="bg-yellow-500 text-white px-4 py-2 rounded"
+        >
+          Login
+        </a>
+        <a
+          href="/register"
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+
       <div className="bg-gray-100 min-h-screen  flex flex-col items-center     ">
         <div className=" text-center w-[90%]">
           <h1 className="text-5xl font-extrabold text-blue-600 mb-6">Welcome to BCA Repository</h1>

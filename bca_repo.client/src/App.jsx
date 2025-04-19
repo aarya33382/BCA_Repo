@@ -18,23 +18,55 @@ import axios from 'axios';
 import Test from './Components/Test';
 import SingleResource from './Components/SingleResource';
 import { totalContext } from './Components/AppCotext';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
     const {setCurrentUser,setIsLogged}=useContext(totalContext);
+   const navigate=useNavigate();
+    const isTokenExpired = (token) => {
+        const tokenParts = token.split('.'); // JWT tokens are split by '.'
+        if (tokenParts.length !== 3) {
+            return true; // Invalid token
+        }
+
+        const payload = JSON.parse(atob(tokenParts[1])); // Decode the payload (middle part)
+        const expirationTime = payload.exp; // The 'exp' field contains the expiration timestamp (seconds)
+
+        const currentTime = new Date().getTime() / 1000; // Current time in seconds
+        return expirationTime < currentTime; // Return true if the token is expired
+    };
+
+
+
+
    
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-          setIsLogged(true);
-          const currentuser=JSON.parse(localStorage.getItem('userT'));
-          setCurrentUser(currentuser);
+            if (isTokenExpired(token)) {
+                // Token is expired, log the user out
+                localStorage.removeItem('token');
+                localStorage.removeItem('userT');
+                setIsLogged(false);
+                setCurrentUser(null);
+                axios.defaults.headers.common['Authorization'] = ''; // Clear Authorization header
+                navigate('/login'); // Redirect to login page
+            } else {
+                // Token is valid, set Authorization header and user info
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                setIsLogged(true);
+                const currentUser = JSON.parse(localStorage.getItem('userT'));
+                setCurrentUser(currentUser);
+            }
+        } else {
+            // If no token is found in localStorage
+            setIsLogged(false);
+            setCurrentUser(null);
+            axios.defaults.headers.common['Authorization'] = ''; // Ensure no Authorization header is set
         }
-       
-      }, []);
+    }, [setCurrentUser, setIsLogged, navigate]);
+
 
 
     return (
@@ -85,3 +117,5 @@ function App() {
 }
 
 export default App;
+
+
