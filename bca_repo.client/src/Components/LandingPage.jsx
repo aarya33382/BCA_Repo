@@ -24,6 +24,7 @@ export default function LandingPage() {
   const {isLogged}=useContext(totalContext);
 
   useEffect(() => {
+  console.log(isLogged);
     const timer = setTimeout(() => {
       setShowPopup(false);
     }, 5000);
@@ -257,3 +258,4 @@ const FeatureItem = ({ icon, title, description }) => (
     </div>
   </div>
 );
+

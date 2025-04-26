@@ -40,6 +40,7 @@ namespace BCA_Repo.Server.BusinessLayer
                 {
                     contactList.Add(new ContactUs
                     {
+                        ContactID = (int)reader["ID"],
                         UserID = (int)reader["UserID"], // Retrieve UserId
                         Name = reader["Name"].ToString(),
                         Email = reader["Email"].ToString(),
@@ -51,5 +52,17 @@ namespace BCA_Repo.Server.BusinessLayer
             }
             return contactList;
         }
+        public bool DeleteContactUs(int id)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+        new SqlParameter("@ID", id)
+            };
+
+            int rowsAffected = _sqlClass.ExecuteNormalQuery("sp_DeleteContactUs", parameters);
+
+            return rowsAffected > 0;
+        }
+
     }
 }

@@ -61,5 +61,85 @@ namespace BCA_Repo.Server.SqlOperations
             con.Open();
             return cmd.ExecuteReader(CommandBehavior.CloseConnection);
         }
+
+        public int ExecuteDeleteUser(string sp, SqlParameter[] parameters)
+        {
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand(sp, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery(); // returns the number of rows affected
+                }
+            }
+        }
+        public bool ExecuteApprovalUpdate(string sp, SqlParameter[] parameters)
+        {
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand(sp, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    con.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }   
+            }
+        }
+        public int ExecuteDeleteResource(string sp, SqlParameter[] parameters)
+        {
+            int rowsAffected = 0;
+
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand(sp, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    con.Open();
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+
+            return rowsAffected;
+        }
+        public int ExecuteNormalQuery(string sp, SqlParameter[] parameters)
+        {
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand(sp, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    con.Open();
+                        return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
     }
 }

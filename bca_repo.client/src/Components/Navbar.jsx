@@ -80,7 +80,7 @@ export default function Navbar() {
 
           {showMenu && (
             <div className="absolute right-0 mt-2 bg-white text-black shadow-lg rounded-md w-40 py-2 z-50">
-              <Link to="/my-info" className="flex items-center px-4 py-2 hover:bg-gray-100">
+              <Link to={currentUser.roleId===0?"/userDashboard":"/adminDashboard"} className="flex items-center px-4 py-2 hover:bg-gray-100">
                 <Info size={18} className="mr-2" /> My Info
               </Link>
               <button

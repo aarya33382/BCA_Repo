@@ -21,9 +21,23 @@ import { totalContext } from './Components/AppCotext';
 import { useNavigate } from 'react-router-dom';
 
 
+
+import AdminRoute from './Components/AdminRoutes/AdminRoute';
+import Dashboard from './Components/AdminRoutes/Dashboard';
+import ResourcesAdmin from './Components/AdminRoutes/ResourcesAdmin';
+import QueriesAdmin from './Components/AdminRoutes/QueriesAdmin';
+import UsersAdmin from './Components/AdminRoutes/UsersAdmin';
+
+import UserRoute from './Components/UserRoutes/UserRoute';
+import UserDash from './Components/UserRoutes/UserDash';
+import MyDetails from './Components/UserRoutes/MyDetails';
+import MyQueries from './Components/UserRoutes/MyQueries';
+import MyUploads from './Components/UserRoutes/MyUploads';
+
 function App() {
-    const {setCurrentUser,setIsLogged}=useContext(totalContext);
-   const navigate=useNavigate();
+
+    const { setCurrentUser, setIsLogged, isLogged } = useContext(totalContext);
+    const navigate = useNavigate();
     const isTokenExpired = (token) => {
         const tokenParts = token.split('.'); // JWT tokens are split by '.'
         if (tokenParts.length !== 3) {
@@ -40,8 +54,10 @@ function App() {
 
 
 
-   
+
     useEffect(() => {
+        console.log("APP.js" + isLogged);
+        // console.log(currentuser.roleId);
         const token = localStorage.getItem('token');
         if (token) {
             if (isTokenExpired(token)) {
@@ -58,6 +74,7 @@ function App() {
                 setIsLogged(true);
                 const currentUser = JSON.parse(localStorage.getItem('userT'));
                 setCurrentUser(currentUser);
+                // console.log("Is it working");
             }
         } else {
             // If no token is found in localStorage
@@ -74,7 +91,7 @@ function App() {
         <>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
@@ -94,14 +111,34 @@ function App() {
                     <Routes>
                         <Route path='/' element={<LandingPage />} />
                         <Route path='/resources' element={<Resources />} />
-                        <Route path="/resource/:id" element={<SingleResource />} />
-                        <Route path='/contact' element={<Contact />} />
+                        <Route path="/resource/:id" element={<UserRoute><SingleResource /></UserRoute>} />
+                        <Route path='/contact' element={<UserRoute><Contact /></UserRoute>} />
                         <Route path='/about' element={<About />} />
                         <Route path='/login' element={<Login />} />
                         <Route path='/register' element={
                             <UserContext>
                                 <Register />
                             </UserContext>} />
+                        <Route path='/userDashboard' element={
+                            <UserRoute>
+                                <UserDash />
+                            </UserRoute>}>
+
+                            <Route path="details" element={<MyDetails />} />
+                            <Route path="uploads" element={<MyUploads />} />
+                            <Route path="queries" element={<MyQueries />} />
+                            <Route index element={<MyDetails />} /> {/* default */}
+                        </Route>
+                        <Route path='/adminDashboard' element={
+                            <AdminRoute>
+                                <Dashboard />
+                            </AdminRoute>
+
+                        }>
+                            <Route path="users" element={<UsersAdmin />} />
+                            <Route path="resources" element={< ResourcesAdmin/>} />
+                            <Route path="queries" element={<QueriesAdmin/>} />
+                        </Route>
                     </Routes>
 
 

@@ -35,6 +35,7 @@ namespace BCA_Repo.Server.BusinessLayer
                 {
                     resourceList.Add(new Resources
                     {
+                        IsApproved = reader.GetBoolean(7),
                         ResourceID= reader.GetInt32(0),
                         Title = reader.GetString(1),
                         Description = reader.GetString(2),
@@ -71,6 +72,32 @@ namespace BCA_Repo.Server.BusinessLayer
             }
             return null; // If resource not found
         }
+        public bool UpdateApprovalStatus(int resourceId, int isApproved)
+        {
+            string spQuery = "UpdateResourceApprovalStatus"; // Make sure this stored procedure exists
+
+            SqlParameter[] parameters = {
+        new SqlParameter("@ResourceID", resourceId),
+        new SqlParameter("@IsApproved", isApproved)
+    };
+
+            return sql.ExecuteApprovalUpdate(spQuery, parameters);
+        }
+
+        public bool DeleteResource(int resourceId)
+        {
+            string spQuery = "DeleteResourceById"; // Name of your stored procedure
+            SqlParameter[] parameters = {
+        new SqlParameter("@ResourceID", resourceId)
+    };
+
+            int rowsAffected = sql.ExecuteDeleteResource(spQuery, parameters);
+            return rowsAffected > 0;
+        }
+
+
+
+
 
 
     }

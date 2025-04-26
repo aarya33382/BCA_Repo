@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using  BCA_Repo.Server.Models;
 using BCA_Repo.Server.BusinessLayer;
+using Microsoft.Identity.Client;
 namespace BCA_Repo.Server.Controllers
 {
     [Route("api/[controller]")]
@@ -13,6 +14,7 @@ namespace BCA_Repo.Server.Controllers
         {
             _bl = DI;
         }
+
         [HttpPost]
         public IActionResult CInsertUsers([FromBody] Users user )
         {
@@ -31,5 +33,31 @@ namespace BCA_Repo.Server.Controllers
                 return BadRequest(new { message = "Registration failed." });
             }
         }
+
+
+        [HttpGet]
+        public IActionResult CGetUsers()
+        {
+            var users = _bl.GetUsers();
+
+            if (users == null || users.Count == 0)
+                return NotFound(new { message = "No users found." });
+
+            return Ok(users);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult CDeleteUserById([FromRoute]int id)
+        {
+            bool result = _bl.DeleteUserById(id);
+
+            if (result)
+                return Ok(new { message = "User deleted successfully." });
+            else
+                return NotFound(new { message = "User not found or deletion failed." });
+        }
+
+
+
     }
 }

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { LucideVolleyball, X } from "lucide-react";
 import { toast } from "react-toastify";
-
+import { totalContext } from "./Components/AppCotext";
 
 const FileUpload = ({ onClose,SetReload }) => {
+
+  const {currentUser}= useContext(totalContext);
+
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -26,7 +29,7 @@ const FileUpload = ({ onClose,SetReload }) => {
     formData.append("Title", title);
     formData.append("Description", description);
     formData.append("Category", category);
-    formData.append("UploadedBy", 38);
+    formData.append("UploadedBy", currentUser.userId);
 
     console.log("🚀 Sending FormData:");
     for (let pair of formData.entries()) {

@@ -26,7 +26,7 @@ const FileList = ({ searchQuery, selectedCategory, Reload }) => {
     // Apply filters for search & category
     const filteredFiles = files.filter((file) =>
         (searchQuery === "" || file.title.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        (selectedCategory === "" || file.category.toLowerCase() === selectedCategory.toLowerCase())
+        (selectedCategory === "" || file.category.toLowerCase() === selectedCategory.toLowerCase())&&file.isApproved
     );
 
     if (loading) return <p className="text-center text-gray-600">Loading files...</p>;

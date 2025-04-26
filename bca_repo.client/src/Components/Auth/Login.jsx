@@ -8,7 +8,7 @@ import { totalContext } from '../AppCotext.jsx';
 
 export default function Login() {
 
-    const {setCurrentUser,setIsLogged}=useContext(totalContext);
+    const {setCurrentUser,setIsLogged,isLogged}=useContext(totalContext);
 
 
   const [email, setEmail] = useState('');
@@ -55,6 +55,8 @@ export default function Login() {
         setIsLogged(true);
         const currentuser=JSON.parse(localStorage.getItem('userT'));
         setCurrentUser(currentuser);
+        console.log(currentuser.roleId);
+        console.log(isLogged);
         
       }
 
@@ -71,6 +73,7 @@ export default function Login() {
         setErrorMessage('Invalid email or password');
         toast.error("Invalid Credentials!");
       } else {
+        console.log(error);
         setErrorMessage('An error occurred, please try again later');
       }
     }

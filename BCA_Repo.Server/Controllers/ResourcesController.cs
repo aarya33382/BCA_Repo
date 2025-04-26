@@ -126,6 +126,29 @@ namespace BCA_Repo.Server.Controllers
             return contentType;
         }
 
+        [HttpPut("approve/{id}")]
+        public IActionResult UpdateApprovalStatus(int id, [FromBody] UpdateApprovalDto dto)
+        {
+            bool result = _bl.UpdateApprovalStatus(id, dto.IsApproved ? 1 : 0);
+
+            if (result)
+                return Ok(new { message = "Approval status updated successfully." });
+            else
+                return NotFound(new { message = "Resource not found or update failed." });
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteResource(int id)
+        {
+            bool result = _bl.DeleteResource(id);
+
+            if (result)
+                return Ok(new { message = "Resource deleted successfully." });
+            else
+                return NotFound(new { message = "Resource not found or deletion failed." });
+        }
+
+
 
 
         //[HttpGet("files")]
@@ -159,5 +182,8 @@ namespace BCA_Repo.Server.Controllers
             public IFormFile File { get; set; }
         }
     }
-
+public class UpdateApprovalDto
+{
+    public bool IsApproved { get; set; }
+}
 

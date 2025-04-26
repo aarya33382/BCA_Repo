@@ -4,7 +4,7 @@ import { Search, Upload } from 'lucide-react';
 import FileList from '../FileList';
 import FileUpload from '../FileUpload';
 import { toast } from "react-toastify";
-
+import UserRoute from './UserRoutes/UserRoute';
 
 
 
@@ -70,7 +70,7 @@ export default function Resources() {
             </div>
 
             {/* Upload Modal */}
-            {upload && <FileUpload onClose={handleUploadClick} SetReload={setReload}/>}
+            {upload && <UserRoute><FileUpload onClose={handleUploadClick} SetReload={setReload}/></UserRoute>}
         </>
     );
 }

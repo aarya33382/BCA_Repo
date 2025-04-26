@@ -7,11 +7,11 @@ import AppCotext from './Components/AppCotext.jsx'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter >
     <AppCotext>
        <App />
     </AppCotext>
     </BrowserRouter>
-  </StrictMode>,
+  // </StrictMode>,
 )

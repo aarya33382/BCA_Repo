@@ -16,6 +16,7 @@ namespace BCA_Repo.Server.Controllers
         {
             bl = DI;
         }
+
         [HttpGet]
         [Route("GetAllContactUsDetails")]
         public IActionResult GetAllEmployee()
@@ -46,5 +47,17 @@ namespace BCA_Repo.Server.Controllers
                 return BadRequest("Some error occurred");
             }
         }
+
+        [HttpDelete("DeleteContactUs/{id}")]
+        public IActionResult DeleteContactUs(int id)
+        {
+            bool isDeleted = bl.DeleteContactUs(id);
+
+            if (isDeleted)
+                return Ok(new { message = "Query deleted successfully." });
+            else
+                return NotFound(new { message = "Query not found or deletion failed." });
+        }
+
     }
 }
