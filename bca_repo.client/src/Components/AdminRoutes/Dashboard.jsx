@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { totalContext } from '../AppCotext';
-import { FaUsers, FaBookOpen, FaQuestionCircle } from 'react-icons/fa';
+import { FaUsers, FaBookOpen, FaQuestionCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 export default function Dashboard() {
   const { currentUser } = useContext(totalContext);
@@ -21,10 +21,9 @@ export default function Dashboard() {
               <NavLink
                 to="users"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${
-                    isActive
-                      ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
-                      : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
+                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${isActive
+                    ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
+                    : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
                   }`
                 }
               >
@@ -36,10 +35,9 @@ export default function Dashboard() {
               <NavLink
                 to="resources"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${
-                    isActive
-                      ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
-                      : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
+                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${isActive
+                    ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
+                    : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
                   }`
                 }
               >
@@ -51,15 +49,28 @@ export default function Dashboard() {
               <NavLink
                 to="queries"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${
-                    isActive
-                      ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
-                      : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
+                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${isActive
+                    ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
+                    : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
                   }`
                 }
               >
                 <FaQuestionCircle className="text-lg" />
                 Queries
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="resourceIssues"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${isActive
+                    ? 'bg-purple-100 text-purple-700 font-semibold shadow-sm'
+                    : 'hover:bg-purple-50 hover:text-purple-600 text-gray-700'
+                  }`
+                }
+              >
+                <FaExclamationTriangle className="text-lg" />
+                Resource Issues
               </NavLink>
             </li>
           </ul>

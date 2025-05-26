@@ -24,6 +24,8 @@ namespace BCA_Repo.Server
             builder.Services.AddScoped<BLResources>();
             builder.Services.AddScoped<BLContact>();
             builder.Services.AddScoped<BLLogin>();
+            builder.Services.AddScoped<blResourceIssue>();
+
 
             // CORS policy
             builder.Services.AddCors(options =>

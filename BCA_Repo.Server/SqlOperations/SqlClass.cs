@@ -1,4 +1,5 @@
 ﻿
+using BCA_Repo.Server.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
@@ -137,6 +138,58 @@ namespace BCA_Repo.Server.SqlOperations
                 }
             }
         }
+        public bool InsertResourceIssue(ResourceIssue issue)
+        {
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_InsertResourceIssue", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ResourceID", issue.ResourceID);
+                    cmd.Parameters.AddWithValue("@Title", issue.Title);
+                    cmd.Parameters.AddWithValue("@UserID", issue.UserID);
+                    cmd.Parameters.AddWithValue("@ActionType", issue.ActionType);
+                    cmd.Parameters.AddWithValue("@Message", issue.Message);
+
+                    con.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
+                }
+            }
+        }
+        public List<ResourceIssue> GetAllResourceIssues()
+        {
+            List<ResourceIssue> issues = new List<ResourceIssue>();
+
+            using (SqlConnection con = new SqlConnection(con_string))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetAllResourceIssues", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            issues.Add(new ResourceIssue
+                            {
+                                IssueID = Convert.ToInt32(reader["IssueID"]),
+                                ResourceID = Convert.ToInt32(reader["ResourceID"]),
+                                Title = reader["Title"].ToString(),
+                                UserID = Convert.ToInt32(reader["UserID"]),
+                                ActionType = reader["ActionType"].ToString(),
+                                Message = reader["Message"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return issues;
+        }
+
+
 
 
 

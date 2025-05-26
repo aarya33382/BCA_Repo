@@ -12,7 +12,7 @@ export default function UserRoute({ children }) {
   },[])
   return (
     <>
-      {isLogged && currentUser.roleId===0? children : <Navigate to="/login" />}
+      {isLogged ? children : <Navigate to="/login" />}
     </>
   );
 }
